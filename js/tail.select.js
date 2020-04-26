@@ -1397,20 +1397,20 @@
          */
         applyLinguisticRules: function(search, casesensitive){
             var rules = this.self.con.linguisticRules, values = [];
-            
+
             // Prepare Rules
-            Object.keys(rules).forEach(function(key){ 
+            Object.keys(rules).forEach(function(key){
                 values.push("(" + key + "|[" + rules[key] + "])");
             });
             if(casesensitive){
-                values = values.concat(values.map(function(s){ return s.toUpperCase(); })); 
+                values = values.concat(values.map(function(s){ return s.toUpperCase(); }));
             }
 
             return search.replace(new RegExp(values.join("|"), (casesensitive)? "g": "ig"), function(m){
                 return values[[].indexOf.call(arguments, m, 1) - 1];
             });
         },
-    
+
 
         /*
          |  FIND SOME OPTIONs - ARRAY EDITION
@@ -1418,7 +1418,7 @@
          */
         find: function(search, config){
             var self = this, matches, has = {};
-            
+
             // Get Config
             if(!config){
                 config = this.self.con.searchConfig;
@@ -1436,7 +1436,7 @@
                     if(typeof c === "string"){ has[c] = true; }
                 });
                 has.any = (!has.any)? has.attributes && has.value: has.any;
-                
+
                 // Cleanup & Prepare
                 if(!has.regex || has.text){
                     search = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -1451,7 +1451,7 @@
                 // Search
                 var regex = new RegExp(search, (!has.case)? "mi": "m"),
                     sfunc = function(opt){ return regex.test(opt.text || opt.value); };
-                
+
                 // Handle
                 if(has.any){
                     matches = function(opt){ return sfunc(opt) || [].some.call(opt.attributes, sfunc); };
@@ -1469,7 +1469,7 @@
 
             // Hammer Time
             return [].filter.call(this.self.e.options, matches).map(function(opt){
-                return opt.hidden? false: self.get(opt) 
+                return opt.hidden? false: self.get(opt)
             });
         },
 
