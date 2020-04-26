@@ -325,13 +325,28 @@
             for(var l = this.e.options.length, i = 0; i < l; i++){
                 this.options.set(this.e.options[i], false);
             }
-            for(var key in con.items){
+            function isIterable(obj) {
+              // checks for null and undefined
+              if (obj == null) {
+                return false;
+              }
+              return typeof obj[Symbol.iterator] === 'function';
+            }
+            if(isIterable(con.items)){
+              for(var [key, obj] of con.items){
+                   this.options.add(key, obj.value, obj.group, obj.selected, obj.disabled, obj.description);
+              }
+            }
+            else{
+              for(var key in con.items){
                 if(typeof con.items[key] === "string"){
                     con.items[key] = {value: con.items[key]};
                 }
-                this.options.add(con.items[key].key || key, con.items[key].value,
+                this.options.add(
+                    con.items[key].key || key, con.items[key].value,
                     con.items[key].group, con.items[key].selected,
                     con.items[key].disabled, con.items[key].description);
+              }
             }
             this.query();
 
