@@ -651,7 +651,7 @@
             var ul = create("UL", "dropdown-optgroup"), self = this, a1, a2;
             if(group == "#"){ return ul; }
             ul.innerHTML = '<li class="optgroup-title"><b>' + group + '</b></li>';
-            if(this.con.multiple && this.con.multiLimit == Infinity && this.con.multiSelectAll){
+            if(this.con.multiple && this.con.multiLimit == Infinity && this.con.multiSelectGroup){
                 a1 = create("BUTTON", "tail-none"), a2 = create("BUTTON", "tail-all");
                 a1.innerText = this._e("none");
                 a1.addEventListener("click", function(event){
