@@ -348,17 +348,6 @@
                     con.items[key].disabled, con.items[key].description);
               }
             }
-          }
-          else{
-            for(var key in con.items){
-              if(typeof con.items[key] === "string"){
-                con.items[key] = {value: con.items[key]};
-              }
-              this.options.add(con.items[key].key || key, con.items[key].value,
-                               con.items[key].group, con.items[key].selected,
-                               con.items[key].disabled, con.items[key].description);
-            }
-          }
             this.query();
 
             // Append and Return
